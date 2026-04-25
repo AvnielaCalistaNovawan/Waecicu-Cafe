@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wae Cicu Bake — Artisan Cake & Tea, Jember</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Custom Cursor -->
+  <div class="cursor-dot" id="cursorDot"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-logo">
+      <span class="logo-ornament">✦</span>
+      <span class="logo-text">Wae Cicu Bake</span>
+      <span class="logo-ornament">✦</span>
+    </div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about" class="nav-link">Our Story</a></li>
+      <li><a href="#menu" class="nav-link">Menu</a></li>
+      <li><a href="#gallery" class="nav-link">Collection</a></li>
+      <li><a href="#contact" class="nav-link">Find Us</a></li>
+    </ul>
+    <button class="nav-reserve" onclick="openWhatsApp()">Reserve a Table</button>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <div class="hero-bg-layer parallax-bg" data-speed="0.4"></div>
+    <div class="hero-grain"></div>
+    <div class="hero-vines">
+      <svg class="vine vine-left" viewBox="0 0 200 800" xmlns="http://www.w3.org/2000/svg">
+        <path d="M100,0 C60,100 140,200 80,300 C20,400 160,500 60,600 C0,680 120,750 80,800" stroke="#2d4a3e" stroke-width="1.5" fill="none" opacity="0.4"/>
+        <circle cx="80" cy="200" r="18" fill="none" stroke="#2d4a3e" stroke-width="1" opacity="0.3"/>
+        <circle cx="130" cy="380" r="12" fill="none" stroke="#2d4a3e" stroke-width="1" opacity="0.3"/>
+        <circle cx="60" cy="560" r="20" fill="none" stroke="#2d4a3e" stroke-width="1" opacity="0.3"/>
+        <ellipse cx="90" cy="150" rx="25" ry="15" fill="#2d4a3e" opacity="0.15" transform="rotate(-30 90 150)"/>
+        <ellipse cx="50" cy="330" rx="20" ry="12" fill="#2d4a3e" opacity="0.12" transform="rotate(20 50 330)"/>
+        <ellipse cx="120" cy="490" rx="22" ry="14" fill="#2d4a3e" opacity="0.15" transform="rotate(-15 120 490)"/>
+      </svg>
+      <svg class="vine vine-right" viewBox="0 0 200 800" xmlns="http://www.w3.org/2000/svg">
+        <path d="M100,0 C140,100 60,200 120,300 C180,400 40,500 140,600 C200,680 80,750 120,800" stroke="#2d4a3e" stroke-width="1.5" fill="none" opacity="0.4"/>
+        <circle cx="120" cy="180" r="16" fill="none" stroke="#2d4a3e" stroke-width="1" opacity="0.3"/>
+        <circle cx="70" cy="360" r="14" fill="none" stroke="#2d4a3e" stroke-width="1" opacity="0.3"/>
+        <circle cx="140" cy="540" r="18" fill="none" stroke="#2d4a3e" stroke-width="1" opacity="0.3"/>
+        <ellipse cx="110" cy="130" rx="23" ry="14" fill="#2d4a3e" opacity="0.13" transform="rotate(25 110 130)"/>
+        <ellipse cx="150" cy="310" rx="18" ry="11" fill="#2d4a3e" opacity="0.12" transform="rotate(-20 150 310)"/>
+        <ellipse cx="80" cy="470" rx="24" ry="15" fill="#2d4a3e" opacity="0.15" transform="rotate(15 80 470)"/>
+      </svg>
+    </div>
+    <div class="hero-content">
+      <p class="hero-eyebrow reveal-up">Artisanal Cake & Tea — Jember</p>
+      <h1 class="hero-headline">
+        <span class="line-1 reveal-up" style="animation-delay:0.2s">Luxury</span>
+        <span class="line-italic reveal-up" style="animation-delay:0.4s">Meets</span>
+        <span class="line-2 reveal-up" style="animation-delay:0.6s">Taste</span>
+      </h1>
+      <p class="hero-sub reveal-up" style="animation-delay:0.8s">Where every creation is a masterpiece, every sip a memory.</p>
+      <div class="hero-cta reveal-up" style="animation-delay:1s">
+        <button class="btn-primary" onclick="document.getElementById('gallery').scrollIntoView({behavior:'smooth'})">
+          <span>Explore Collection</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+        <button class="btn-ghost" onclick="document.getElementById('menu').scrollIntoView({behavior:'smooth'})">View Menu</button>
+      </div>
+    </div>
+    <div class="hero-scroll-hint">
+      <span class="scroll-label">Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+    <div class="hero-badge">
+      <div class="badge-ring">
+        <svg viewBox="0 0 120 120" class="badge-svg">
+          <path id="badgeTextPath" d="M 60,60 m -37,0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" fill="none"/>
+          <text class="badge-text-circle">
+            <textPath href="#badgeTextPath">✦ JEMBER · EST. 2023 · ARTISAN BAKERY ✦ </textPath>
+          </text>
+        </svg>
+        <span class="badge-center">✦</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Marquee Strip -->
+  <div class="marquee-strip">
+    <div class="marquee-track">
+      <span>Artisanal Cakes</span><span class="marquee-dot">✦</span>
+      <span>Premium Tea</span><span class="marquee-dot">✦</span>
+      <span>Handcrafted Daily</span><span class="marquee-dot">✦</span>
+      <span>Vintage Ambiance</span><span class="marquee-dot">✦</span>
+      <span>Jember's Finest</span><span class="marquee-dot">✦</span>
+      <span>Artisanal Cakes</span><span class="marquee-dot">✦</span>
+      <span>Premium Tea</span><span class="marquee-dot">✦</span>
+      <span>Handcrafted Daily</span><span class="marquee-dot">✦</span>
+      <span>Vintage Ambiance</span><span class="marquee-dot">✦</span>
+      <span>Jember's Finest</span><span class="marquee-dot">✦</span>
+    </div>
+  </div>
+
+  <!-- About Section -->
+  <section class="about" id="about">
+    <div class="about-inner">
+      <div class="about-image-col scroll-reveal">
+        <div class="about-img-frame">
+          <div class="about-img-placeholder">
+            <div class="img-ornament-top"></div>
+            <div class="cake-illustration">
+              <svg viewBox="0 0 280 320" xmlns="http://www.w3.org/2000/svg">
+                <!-- Cake plate -->
+                <ellipse cx="140" cy="285" rx="110" ry="18" fill="#c8956a" opacity="0.3"/>
+                <rect x="60" y="270" width="160" height="14" rx="7" fill="#d4a877"/>
+                <ellipse cx="140" cy="270" rx="80" ry="10" fill="#e8c99a"/>
+                <!-- Cake bottom layer -->
+                <rect x="55" y="200" width="170" height="70" rx="12" fill="#c8956a"/>
+                <rect x="55" y="200" width="170" height="12" rx="6" fill="#e8c99a"/>
+                <!-- Cake middle layer -->
+                <rect x="70" y="140" width="140" height="65" rx="10" fill="#d4a877"/>
+                <rect x="70" y="140" width="140" height="10" rx="5" fill="#f0d9b5"/>
+                <!-- Cream layer details -->
+                <path d="M70,152 Q80,145 90,152 Q100,159 110,152 Q120,145 130,152 Q140,159 150,152 Q160,145 170,152 Q180,159 190,152 Q200,145 210,152" stroke="#f5ead8" stroke-width="3" fill="none"/>
+                <!-- Cake top layer -->
+                <rect x="85" y="88" width="110" height="55" rx="8" fill="#e8c99a"/>
+                <rect x="85" y="88" width="110" height="9" rx="4" fill="#f5ead8"/>
+                <!-- Top cream swirls -->
+                <ellipse cx="115" cy="80" rx="12" ry="18" fill="#f5ead8"/>
+                <ellipse cx="140" cy="75" rx="14" ry="20" fill="#fefaf4"/>
+                <ellipse cx="165" cy="80" rx="12" ry="18" fill="#f5ead8"/>
+                <!-- Berries -->
+                <circle cx="115" cy="62" r="7" fill="#8b2635"/>
+                <circle cx="140" cy="56" r="8" fill="#a03040"/>
+                <circle cx="165" cy="62" r="7" fill="#8b2635"/>
+                <circle cx="128" cy="68" r="5" fill="#2d4a3e"/>
+                <circle cx="152" cy="68" r="5" fill="#2d4a3e"/>
+                <!-- Candles -->
+                <rect x="108" y="42" width="6" height="22" rx="3" fill="#f0d9b5"/>
+                <rect x="133" y="35" width="6" height="22" rx="3" fill="#f5ead8"/>
+                <rect x="158" y="42" width="6" height="22" rx="3" fill="#f0d9b5"/>
+                <!-- Flames -->
+                <ellipse cx="111" cy="40" rx="4" ry="6" fill="#e8963a" opacity="0.9"/>
+                <ellipse cx="136" cy="33" rx="4" ry="6" fill="#f0a030" opacity="0.9"/>
+                <ellipse cx="161" cy="40" rx="4" ry="6" fill="#e8963a" opacity="0.9"/>
+                <!-- Decorative dots on cake -->
+                <circle cx="80" cy="230" r="3" fill="#f0d9b5" opacity="0.6"/>
+                <circle cx="100" cy="220" r="3" fill="#f0d9b5" opacity="0.6"/>
+                <circle cx="120" cy="230" r="3" fill="#f0d9b5" opacity="0.6"/>
+                <circle cx="140" cy="220" r="3" fill="#f0d9b5" opacity="0.6"/>
+                <circle cx="160" cy="230" r="3" fill="#f0d9b5" opacity="0.6"/>
+                <circle cx="180" cy="220" r="3" fill="#f0d9b5" opacity="0.6"/>
+                <circle cx="200" cy="230" r="3" fill="#f0d9b5" opacity="0.6"/>
+              </svg>
+            </div>
+            <div class="img-ornament-bottom"></div>
+          </div>
+          <div class="about-img-tag">Since 2023</div>
+        </div>
+      </div>
+      <div class="about-text-col">
+        <p class="section-eyebrow scroll-reveal">Our Story</p>
+        <h2 class="section-heading scroll-reveal">Crafted with <em>Passion,</em><br>Served with <em>Grace</em></h2>
+        <div class="about-divider scroll-reveal">
+          <span class="divider-line"></span>
+          <span class="divider-ornament">✦</span>
+          <span class="divider-line"></span>
+        </div>
+        <p class="about-body scroll-reveal">
+          Born from a deep love for the art of baking, Wae Cicu Bake began as a humble dream in the heart of Jember. We believe that a cake is not merely dessert — it is an emotion, a celebration, a memory carefully folded into every layer.
+        </p>
+        <p class="about-body scroll-reveal">
+          Every morning, our artisans arrive before the city wakes, selecting only the finest locally-sourced ingredients. Our recipes carry the wisdom of tradition and the excitement of modern patisserie — resulting in flavors that linger long after the last bite.
+        </p>
+        <div class="about-stats scroll-reveal">
+          <div class="stat-item">
+            <span class="stat-num">50+</span>
+            <span class="stat-label">Signature Recipes</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <span class="stat-num">2K+</span>
+            <span class="stat-label">Happy Customers</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <span class="stat-num">100%</span>
+            <span class="stat-label">Handcrafted Daily</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Visual Menu Section -->
+  <section class="menu-section" id="menu">
+    <div class="menu-bg-pattern"></div>
+    <div class="menu-inner">
+      <div class="section-header-center">
+        <p class="section-eyebrow scroll-reveal">Curated For You</p>
+        <h2 class="section-heading scroll-reveal">The Signature<br><em>Menu</em></h2>
+        <p class="section-sub scroll-reveal">Hover over each item to unveil its story.</p>
+      </div>
+
+      <div class="menu-tabs scroll-reveal">
+        <button class="menu-tab active" data-tab="cakes">Artisan Cakes</button>
+        <button class="menu-tab" data-tab="tea">Premium Tea</button>
+        <button class="menu-tab" data-tab="pastry">Pastries</button>
+      </div>
+
+      <!-- Cakes -->
+      <div class="menu-list" id="tab-cakes">
+        <div class="menu-item scroll-reveal" data-img-color="#c8956a" data-emoji="🎂">
+          <div class="menu-item-inner">
+            <div class="menu-item-left">
+              <span class="menu-num">01</span>
+              <div>
+                <h3 class="menu-name">Tiramisu Royal</h3>
+                <p class="menu-desc">Italian mascarpone, espresso-soaked ladyfingers, dusted with Valrhona cocoa</p>
+              </div>
+            </div>
+            <div class="menu-item-right">
+              <span class="menu-price">Rp 85.000</span>
+              <div class="menu-hover-img">
+                <div class="menu-img-preview" style="background: linear-gradient(135deg,#c8956a,#8b5e3c)">
+                  <span>🎂</span>
+                  <p>Tiramisu Royal</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="menu-item-line"></div>
+        </div>
+
+        <div class="menu-item scroll-reveal" data-img-color="#8b5e3c" data-emoji="🍰">
+          <div class="menu-item-inner">
+            <div class="menu-item-left">
+              <span class="menu-num">02</span>
+              <div>
+                <h3 class="menu-name">Strawberry Mille-Feuille</h3>
+                <p class="menu-desc">Crisp puff pastry, fresh strawberries, vanilla diplomat cream</p>
+              </div>
+            </div>
+            <div class="menu-item-right">
+              <span class="menu-price">Rp 78.000</span>
+              <div class="menu-hover-img">
+                <div class="menu-img-preview" style="background: linear-gradient(135deg,#d4607a,#8b3045)">
+                  <span>🍰</span>
+                  <p>Strawberry Mille-Feuille</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="menu-item-line"></div>
+        </div>
+
+        <div class="menu-item scroll-reveal" data-img-color="#2d4a3e" data-emoji="🍫">
+          <div class="menu-item-inner">
+            <div class="menu-item-left">
+              <span class="menu-num">03</span>
+              <div>
+                <h3 class="menu-name">Dark Chocolate Obsession</h3>
+                <p class="menu-desc">72% cacao ganache, salted caramel layers, edible gold leaf finish</p>
+              </div>
+            </div>
+            <div class="menu-item-right">
+              <span class="menu-price">Rp 92.000</span>
+              <div class="menu-hover-img">
+                <div class="menu-img-preview" style="background: linear-gradient(135deg,#3d2b1a,#1a0d05)">
+                  <span>🍫</span>
+                  <p>Dark Chocolate Obsession</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="menu-item-line"></div>
+        </div>
+
+        <div class="menu-item scroll-reveal" data-emoji="🌸">
+          <div class="menu-item-inner">
+            <div class="menu-item-left">
+              <span class="menu-num">04</span>
+              <div>
+                <h3 class="menu-name">Rose Lychee Chiffon</h3>
+                <p class="menu-desc">Featherlight chiffon, rose water buttercream, fresh lychee pearls</p>
+              </div>
+            </div>
+            <div class="menu-item-right">
+              <span class="menu-price">Rp 75.000</span>
+              <div class="menu-hover-img">
+                <div class="menu-img-preview" style="background: linear-gradient(135deg,#d4a0b0,#9a5c70)">
+                  <span>🌸</span>
+                  <p>Rose Lychee Chiffon</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="menu-item-line"></div>
+        </div>
+
+        <div class="menu-item scroll-reveal" data-emoji="🍵">
+          <div class="menu-item-inner">
+            <div class="menu-item-left">
+              <span class="menu-num">05</span>
+              <div>
+                <h3 class="menu-name">Matcha Zen Torte</h3>
+                <p class="menu-desc">Ceremonial grade matcha, white chocolate mousse, black sesame crumble</p>
+              </div>
+            </div>
+            <div class="menu-item-right">
+              <span class="menu-price">Rp 88.000</span>
+              <div class="menu-hover-img">
+                <div class="menu-img-preview" style="background: linear-gradient(135deg,#4a7a5a,#2d4a3e)">
+                  <span>🍵</span>
+                  <p>Matcha Zen Torte</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="menu-item-line"></div>
+        </div>
+      </div>
+
+      <!-- Tea -->
+      <div class="menu-list hidden" id="tab-tea">
+        <div class="menu-item scroll-reveal" data-emoji="🫖">
+          <div class="menu-item-inner">
+            <div class="menu-item-left">
+              <span class="menu-num">01</span>
+              <div>
+                <h3 class="menu-name">Earl Grey Lavender</h3>
+                <p class="menu-desc">Bergamot-forward Earl Grey infused with dried French lavender</p>
+              </div>
+            </div>
+            <div class="menu-item-right">
+              <span class="menu-price">Rp 38.000</span>
+              <div class="menu-hover-img">
+                <div class="menu-img-preview" style="background: linear-gradient(135deg,#7a6a9a,#4a3a6a)">
+                  <span>🫖</span><p>Earl Grey Lavender</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="menu-item-line"></div>
+        </div>
+        <div class="menu-item scroll-reveal" data-emoji="🌹">
+          <div class="menu-item-inner">
+            <div class="menu-item-left">
+              <span class="menu-num">02</span>
+              <div>
+                <h3 class="menu-name">Rose Hibiscus Bloom</h3>
+                <p class="menu-desc">Vibrant hibiscus, dried rose petals, hint of citrus zest</p>
+              </div>
+            </div>
+            <div class="menu-item-right">
+              <span class="menu-price">Rp 42.000</span>
+              <div class="menu-hover-img">
+                <div class="menu-img-preview" style="background: linear-gradient(135deg,#d4607a,#8b2030)">
+                  <span>🌹</span><p>Rose Hibiscus Bloom</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="menu-item-line"></div>
+        </div>
+        <div class="menu-item scroll-reveal" data-emoji="🍵">
+          <div class="menu-item-inner">
+            <div class="menu-item-left">
+              <span class="menu-num">03</span>
+              <div>
+                <h3 class="menu-name">Ceremonial Matcha</h3>
+                <p class="menu-desc">First-flush ceremonial grade matcha, whisked tableside</p>
+              </div>
+            </div>
+            <div class="menu-item-right">
+              <span class="menu-price">Rp 48.000</span>
+              <div class="menu-hover-img">
+                <div class="menu-img-preview" style="background: linear-gradient(135deg,#4a7a5a,#2d4a3e)">
+                  <span>🍵</span><p>Ceremonial Matcha</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="menu-item-line"></div>
+        </div>
+      </div>
+
+      <!-- Pastries -->
+      <div class="menu-list hidden" id="tab-pastry">
+        <div class="menu-item scroll-reveal" data-emoji="🥐">
+          <div class="menu-item-inner">
+            <div class="menu-item-left">
+              <span class="menu-num">01</span>
+              <div>
+                <h3 class="menu-name">Butter Croissant</h3>
+                <p class="menu-desc">French-style laminated dough, 72-hour cold fermentation, cultured butter</p>
+              </div>
+            </div>
+            <div class="menu-item-right">
+              <span class="menu-price">Rp 32.000</span>
+              <div class="menu-hover-img">
+                <div class="menu-img-preview" style="background: linear-gradient(135deg,#e8c06a,#c8903a)">
+                  <span>🥐</span><p>Butter Croissant</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="menu-item-line"></div>
+        </div>
+        <div class="menu-item scroll-reveal" data-emoji="🍮">
+          <div class="menu-item-inner">
+            <div class="menu-item-left">
+              <span class="menu-num">02</span>
+              <div>
+                <h3 class="menu-name">Canelé Bordelais</h3>
+                <p class="menu-desc">Custardy interior, lacquered beeswax crust, dark rum & vanilla</p>
+              </div>
+            </div>
+            <div class="menu-item-right">
+              <span class="menu-price">Rp 28.000</span>
+              <div class="menu-hover-img">
+                <div class="menu-img-preview" style="background: linear-gradient(135deg,#8b5e3c,#3d2010)">
+                  <span>🍮</span><p>Canelé Bordelais</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="menu-item-line"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery / Signature Collection -->
+  <section class="gallery" id="gallery">
+    <div class="gallery-inner">
+      <div class="section-header-center">
+        <p class="section-eyebrow scroll-reveal">Signature Collection</p>
+        <h2 class="section-heading scroll-reveal">A Gallery of<br><em>Sweet Art</em></h2>
+      </div>
+      <div class="gallery-grid">
+        <div class="gallery-card tall scroll-reveal">
+          <div class="gallery-card-inner" style="background: linear-gradient(160deg, #c8956a 0%, #8b5e3c 100%)">
+            <div class="gallery-card-content">
+              <div class="gallery-emoji">🎂</div>
+              <h3>Tiramisu Royal</h3>
+              <p>A crown jewel of Italian tradition</p>
+            </div>
+            <div class="gallery-card-overlay"></div>
+          </div>
+        </div>
+        <div class="gallery-card scroll-reveal" style="animation-delay:0.1s">
+          <div class="gallery-card-inner" style="background: linear-gradient(160deg, #d4607a 0%, #8b3045 100%)">
+            <div class="gallery-card-content">
+              <div class="gallery-emoji">🍓</div>
+              <h3>Strawberry Mille-Feuille</h3>
+              <p>Crisp layers of pure joy</p>
+            </div>
+            <div class="gallery-card-overlay"></div>
+          </div>
+        </div>
+        <div class="gallery-card scroll-reveal" style="animation-delay:0.2s">
+          <div class="gallery-card-inner" style="background: linear-gradient(160deg, #4a7a5a 0%, #1a3020 100%)">
+            <div class="gallery-card-content">
+              <div class="gallery-emoji">🍵</div>
+              <h3>Matcha Zen Torte</h3>
+              <p>Serenity on a plate</p>
+            </div>
+            <div class="gallery-card-overlay"></div>
+          </div>
+        </div>
+        <div class="gallery-card wide scroll-reveal" style="animation-delay:0.3s">
+          <div class="gallery-card-inner" style="background: linear-gradient(160deg, #2d1a0a 0%, #8b5e3c 100%)">
+            <div class="gallery-card-content">
+              <div class="gallery-emoji">🍫</div>
+              <h3>Dark Chocolate Obsession</h3>
+              <p>Where luxury meets decadence — edible gold leaf finish</p>
+            </div>
+            <div class="gallery-card-overlay"></div>
+          </div>
+        </div>
+        <div class="gallery-card scroll-reveal" style="animation-delay:0.4s">
+          <div class="gallery-card-inner" style="background: linear-gradient(160deg, #d4a0b0 0%, #7a3a50 100%)">
+            <div class="gallery-card-content">
+              <div class="gallery-emoji">🌸</div>
+              <h3>Rose Lychee Chiffon</h3>
+              <p>Delicate as a garden breeze</p>
+            </div>
+            <div class="gallery-card-overlay"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonial Strip -->
+  <section class="testimonials">
+    <div class="testimonials-inner">
+      <p class="section-eyebrow scroll-reveal" style="text-align:center">What Our Guests Say</p>
+      <div class="testimonial-grid">
+        <div class="testimonial-card scroll-reveal">
+          <div class="stars">★★★★★</div>
+          <p class="testimonial-quote">"The ambiance is absolutely breathtaking. Every cake feels like a piece of art. Wae Cicu Bake has completely ruined me for ordinary bakeries."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">A</div>
+            <div>
+              <strong>Ayu Rahmawati</strong>
+              <span>Jember, Indonesia</span>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card scroll-reveal" style="animation-delay:0.15s">
+          <div class="stars">★★★★★</div>
+          <p class="testimonial-quote">"I came for the cake, I stayed for the experience. The Tiramisu Royal is unlike anything I've ever tasted — pure elegance in every layer."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar" style="background:#2d4a3e">R</div>
+            <div>
+              <strong>Rizky Firmansyah</strong>
+              <span>Surabaya, Indonesia</span>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card scroll-reveal" style="animation-delay:0.3s">
+          <div class="stars">★★★★★</div>
+          <p class="testimonial-quote">"The vintage decor paired with world-class pastries is just magical. My daughter's birthday was made unforgettable by Wae Cicu Bake."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar" style="background:#8b5e3c">S</div>
+            <div>
+              <strong>Siti Mardiyah</strong>
+              <span>Jember, Indonesia</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact / Location -->
+  <section class="contact" id="contact">
+    <div class="contact-inner">
+      <div class="contact-left scroll-reveal">
+        <p class="section-eyebrow">Come Visit Us</p>
+        <h2 class="section-heading">Find Your Way<br>to <em>Sweetness</em></h2>
+        <div class="contact-details">
+          <div class="contact-item">
+            <div class="contact-icon">📍</div>
+            <div>
+              <strong>Address</strong>
+              <p>Jl. Contoh No. 123, Jember,<br>Jawa Timur 68121, Indonesia</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">🕐</div>
+            <div>
+              <strong>Opening Hours</strong>
+              <p>Tuesday – Sunday<br>09:00 – 21:00 WIB</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">📱</div>
+            <div>
+              <strong>WhatsApp</strong>
+              <p>+62 812-XXXX-XXXX</p>
+            </div>
+          </div>
+        </div>
+        <div class="contact-ctas">
+          <button class="btn-primary btn-whatsapp" onclick="openWhatsApp()">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Chat on WhatsApp
+          </button>
+          <a class="btn-ghost btn-maps" href="https://maps.google.com/?q=Jember,East+Java,Indonesia" target="_blank" rel="noopener">
+            Open in Google Maps
+          </a>
+        </div>
+      </div>
+      <div class="contact-right scroll-reveal">
+        <div class="map-frame">
+          <div class="map-placeholder">
+            <div class="map-pin-anim">
+              <div class="map-pin-dot"></div>
+              <div class="map-pin-ring"></div>
+            </div>
+            <p class="map-label">Wae Cicu Bake</p>
+            <p class="map-sublabel">Jember, East Java</p>
+            <a href="https://maps.google.com/?q=Jember,East+Java,Indonesia" target="_blank" rel="noopener" class="map-open-btn">Open Map ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-vine-top">
+      <svg viewBox="0 0 1200 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+        <path d="M0,40 Q150,10 300,40 Q450,70 600,40 Q750,10 900,40 Q1050,70 1200,40 L1200,80 L0,80 Z" fill="#1a1008"/>
+      </svg>
+    </div>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <span class="logo-ornament">✦</span>
+          <span>Wae Cicu Bake</span>
+          <span class="logo-ornament">✦</span>
+        </div>
+        <p class="footer-tagline">Artisanal Cake & Tea · Jember</p>
+        <p class="footer-copy">Where every creation is a masterpiece.</p>
+      </div>
+      <div class="footer-links-col">
+        <strong>Navigate</strong>
+        <a href="#about">Our Story</a>
+        <a href="#menu">Menu</a>
+        <a href="#gallery">Collection</a>
+        <a href="#contact">Find Us</a>
+      </div>
+      <div class="footer-links-col">
+        <strong>Connect</strong>
+        <a href="#" onclick="openWhatsApp()">WhatsApp</a>
+        <a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://tiktok.com" target="_blank" rel="noopener">TikTok</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Wae Cicu Bake. All rights reserved. Crafted with ✦ in Jember.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
