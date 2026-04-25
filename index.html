@@ -8,8 +8,78 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 </head>
 <body>
+
+  <!-- ===== PRELOADER ===== -->
+  <div id="preloader" class="preloader">
+    <div class="preloader-inner">
+      <div class="preloader-ornament top-left">
+        <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M2,2 L30,2 M2,2 L2,30" stroke="#c8956a" stroke-width="1.5"/>
+          <path d="M10,2 L10,10 L2,10" stroke="#c8956a" stroke-width="0.8" opacity="0.5"/>
+        </svg>
+      </div>
+      <div class="preloader-ornament top-right">
+        <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M78,2 L50,2 M78,2 L78,30" stroke="#c8956a" stroke-width="1.5"/>
+          <path d="M70,2 L70,10 L78,10" stroke="#c8956a" stroke-width="0.8" opacity="0.5"/>
+        </svg>
+      </div>
+      <div class="preloader-ornament bottom-left">
+        <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M2,78 L30,78 M2,78 L2,50" stroke="#c8956a" stroke-width="1.5"/>
+          <path d="M10,78 L10,70 L2,70" stroke="#c8956a" stroke-width="0.8" opacity="0.5"/>
+        </svg>
+      </div>
+      <div class="preloader-ornament bottom-right">
+        <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M78,78 L50,78 M78,78 L78,50" stroke="#c8956a" stroke-width="1.5"/>
+          <path d="M70,78 L70,70 L78,70" stroke="#c8956a" stroke-width="0.8" opacity="0.5"/>
+        </svg>
+      </div>
+
+      <!-- Vintage Pastry Illustration -->
+      <div class="preloader-art">
+        <svg class="preloader-svg" viewBox="0 0 160 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Cup base -->
+          <path class="draw-path" d="M45,140 Q45,155 80,158 Q115,155 115,140 L108,100 L52,100 Z" stroke="#c8956a" stroke-width="1.5" fill="none" stroke-dasharray="300" stroke-dashoffset="300"/>
+          <!-- Cup handle -->
+          <path class="draw-path" d="M108,112 Q130,112 130,127 Q130,142 108,142" stroke="#c8956a" stroke-width="1.5" fill="none" stroke-dasharray="80" stroke-dashoffset="80" style="animation-delay:0.6s"/>
+          <!-- Saucer -->
+          <ellipse class="draw-path" cx="80" cy="158" rx="50" ry="10" stroke="#c8956a" stroke-width="1.2" fill="none" stroke-dasharray="200" stroke-dashoffset="200" style="animation-delay:0.4s"/>
+          <!-- Steam 1 -->
+          <path class="draw-path steam-path" d="M65,95 Q60,82 65,70 Q70,58 65,45" stroke="#d4a877" stroke-width="1.2" fill="none" stroke-dasharray="60" stroke-dashoffset="60" style="animation-delay:0.8s"/>
+          <!-- Steam 2 -->
+          <path class="draw-path steam-path" d="M80,93 Q75,78 80,65 Q85,52 80,40" stroke="#d4a877" stroke-width="1.2" fill="none" stroke-dasharray="60" stroke-dashoffset="60" style="animation-delay:1s"/>
+          <!-- Steam 3 -->
+          <path class="draw-path steam-path" d="M95,95 Q90,82 95,70 Q100,58 95,45" stroke="#d4a877" stroke-width="1.2" fill="none" stroke-dasharray="60" stroke-dashoffset="60" style="animation-delay:1.2s"/>
+          <!-- Decorative floral on cup -->
+          <circle class="draw-path" cx="75" cy="125" r="12" stroke="#d4a877" stroke-width="0.8" fill="none" stroke-dasharray="80" stroke-dashoffset="80" style="animation-delay:1s"/>
+          <path class="draw-path" d="M75,113 L75,137 M63,125 L87,125" stroke="#d4a877" stroke-width="0.8" fill="none" stroke-dasharray="50" stroke-dashoffset="50" style="animation-delay:1.1s"/>
+        </svg>
+      </div>
+
+      <!-- Brand Name -->
+      <div class="preloader-brand">
+        <span class="preloader-ornament-char">✦</span>
+        <span class="preloader-name">Wae Cicu Bake</span>
+        <span class="preloader-ornament-char">✦</span>
+      </div>
+      <p class="preloader-tagline">Artisanal Cake & Tea · Jember</p>
+
+      <!-- Loading Bar -->
+      <div class="preloader-bar-wrap">
+        <div class="preloader-bar-track">
+          <div class="preloader-bar-fill" id="preloaderBar"></div>
+        </div>
+        <span class="preloader-bar-label" id="preloaderPct">0%</span>
+      </div>
+    </div>
+  </div>
 
   <!-- Custom Cursor -->
   <div class="cursor-dot" id="cursorDot"></div>
@@ -36,8 +106,46 @@
 
   <!-- Hero Section -->
   <section class="hero" id="hero">
+    <!-- Unsplash background: warm cafe interior -->
+    <div class="hero-bg-img"></div>
+    <div class="hero-bg-overlay"></div>
     <div class="hero-bg-layer parallax-bg" data-speed="0.4"></div>
     <div class="hero-grain"></div>
+    <!-- Vintage border frame corners -->
+    <div class="hero-corner hero-corner--tl">
+      <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4,4 L50,4 M4,4 L4,50" stroke="rgba(200,149,106,0.6)" stroke-width="1.5"/>
+        <path d="M14,4 L14,14 L4,14" stroke="rgba(200,149,106,0.35)" stroke-width="1"/>
+        <path d="M24,4 L24,8 L4,8" stroke="rgba(200,149,106,0.2)" stroke-width="0.8"/>
+        <circle cx="50" cy="4" r="2" fill="rgba(200,149,106,0.4)"/>
+        <circle cx="4" cy="50" r="2" fill="rgba(200,149,106,0.4)"/>
+      </svg>
+    </div>
+    <div class="hero-corner hero-corner--tr">
+      <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M116,4 L70,4 M116,4 L116,50" stroke="rgba(200,149,106,0.6)" stroke-width="1.5"/>
+        <path d="M106,4 L106,14 L116,14" stroke="rgba(200,149,106,0.35)" stroke-width="1"/>
+        <path d="M96,4 L96,8 L116,8" stroke="rgba(200,149,106,0.2)" stroke-width="0.8"/>
+        <circle cx="70" cy="4" r="2" fill="rgba(200,149,106,0.4)"/>
+        <circle cx="116" cy="50" r="2" fill="rgba(200,149,106,0.4)"/>
+      </svg>
+    </div>
+    <div class="hero-corner hero-corner--bl">
+      <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4,116 L50,116 M4,116 L4,70" stroke="rgba(200,149,106,0.6)" stroke-width="1.5"/>
+        <path d="M14,116 L14,106 L4,106" stroke="rgba(200,149,106,0.35)" stroke-width="1"/>
+        <circle cx="50" cy="116" r="2" fill="rgba(200,149,106,0.4)"/>
+        <circle cx="4" cy="70" r="2" fill="rgba(200,149,106,0.4)"/>
+      </svg>
+    </div>
+    <div class="hero-corner hero-corner--br">
+      <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M116,116 L70,116 M116,116 L116,70" stroke="rgba(200,149,106,0.6)" stroke-width="1.5"/>
+        <path d="M106,116 L106,106 L116,106" stroke="rgba(200,149,106,0.35)" stroke-width="1"/>
+        <circle cx="70" cy="116" r="2" fill="rgba(200,149,106,0.4)"/>
+        <circle cx="116" cy="70" r="2" fill="rgba(200,149,106,0.4)"/>
+      </svg>
+    </div>
     <div class="hero-vines">
       <svg class="vine vine-left" viewBox="0 0 200 800" xmlns="http://www.w3.org/2000/svg">
         <path d="M100,0 C60,100 140,200 80,300 C20,400 160,500 60,600 C0,680 120,750 80,800" stroke="#2d4a3e" stroke-width="1.5" fill="none" opacity="0.4"/>
@@ -59,14 +167,21 @@
       </svg>
     </div>
     <div class="hero-content">
-      <p class="hero-eyebrow reveal-up">Artisanal Cake & Tea — Jember</p>
-      <h1 class="hero-headline">
-        <span class="line-1 reveal-up" style="animation-delay:0.2s">Luxury</span>
-        <span class="line-italic reveal-up" style="animation-delay:0.4s">Meets</span>
-        <span class="line-2 reveal-up" style="animation-delay:0.6s">Taste</span>
-      </h1>
-      <p class="hero-sub reveal-up" style="animation-delay:0.8s">Where every creation is a masterpiece, every sip a memory.</p>
-      <div class="hero-cta reveal-up" style="animation-delay:1s">
+      <p class="hero-eyebrow gsap-hero-eyebrow">Artisanal Cake & Tea — Jember</p>
+      <div class="hero-title-wrap">
+        <h1 class="hero-headline">
+          <span class="gsap-hero-line line-1">Luxury</span>
+          <span class="gsap-hero-line line-italic">Meets</span>
+          <span class="gsap-hero-line line-2">Taste</span>
+        </h1>
+        <div class="hero-title-deco">
+          <span class="hero-deco-line"></span>
+          <span class="hero-deco-star">✦</span>
+          <span class="hero-deco-line"></span>
+        </div>
+      </div>
+      <p class="hero-sub gsap-hero-sub">Where every creation is a masterpiece, every sip a memory.</p>
+      <div class="hero-cta gsap-hero-cta">
         <button class="btn-primary" onclick="document.getElementById('gallery').scrollIntoView({behavior:'smooth'})">
           <span>Explore Collection</span>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -235,6 +350,8 @@
               </div>
             </div>
           </div>
+          <!-- Mobile thumbnail -->
+          <div class="menu-mobile-thumb" style="background-image:url('https://images.unsplash.com/photo-1571115177098-24ec42ed204d?w=200&q=70&fit=crop')"></div>
           <div class="menu-item-line"></div>
         </div>
 
@@ -257,6 +374,7 @@
               </div>
             </div>
           </div>
+          <div class="menu-mobile-thumb" style="background-image:url('https://images.unsplash.com/photo-1488477181946-6428a0291777?w=200&q=70&fit=crop')"></div>
           <div class="menu-item-line"></div>
         </div>
 
@@ -279,6 +397,7 @@
               </div>
             </div>
           </div>
+          <div class="menu-mobile-thumb" style="background-image:url('https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=200&q=70&fit=crop')"></div>
           <div class="menu-item-line"></div>
         </div>
 
@@ -301,6 +420,7 @@
               </div>
             </div>
           </div>
+          <div class="menu-mobile-thumb" style="background-image:url('https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=200&q=70&fit=crop')"></div>
           <div class="menu-item-line"></div>
         </div>
 
@@ -323,6 +443,7 @@
               </div>
             </div>
           </div>
+          <div class="menu-mobile-thumb" style="background-image:url('https://images.unsplash.com/photo-1515823064-d6e0c04616a7?w=200&q=70&fit=crop')"></div>
           <div class="menu-item-line"></div>
         </div>
       </div>
@@ -443,58 +564,110 @@
       <div class="section-header-center">
         <p class="section-eyebrow scroll-reveal">Signature Collection</p>
         <h2 class="section-heading scroll-reveal">A Gallery of<br><em>Sweet Art</em></h2>
+        <p class="section-sub scroll-reveal">Click on any image to reveal its story.</p>
       </div>
       <div class="gallery-grid">
+
         <div class="gallery-card tall scroll-reveal">
-          <div class="gallery-card-inner" style="background: linear-gradient(160deg, #c8956a 0%, #8b5e3c 100%)">
-            <div class="gallery-card-content">
-              <div class="gallery-emoji">🎂</div>
-              <h3>Tiramisu Royal</h3>
-              <p>A crown jewel of Italian tradition</p>
+          <div class="gallery-flip-inner">
+            <div class="gallery-flip-front">
+              <img src="https://images.unsplash.com/photo-1571115177098-24ec42ed204d?w=600&q=80&fit=crop" alt="Tiramisu Royal" loading="lazy"/>
+              <div class="gallery-front-label"><span>Tiramisu Royal</span></div>
+              <div class="gallery-tap-hint">✦ Click to reveal</div>
             </div>
-            <div class="gallery-card-overlay"></div>
+            <div class="gallery-flip-back">
+              <div class="gallery-back-content">
+                <div class="gallery-back-ornament">✦</div>
+                <h3>Tiramisu Royal</h3>
+                <div class="gallery-back-divider"></div>
+                <p>A crown jewel of Italian tradition. Espresso-soaked ladyfingers crowned with mascarpone clouds and dusted in Valrhona cocoa — each layer a love letter to la dolce vita.</p>
+                <span class="gallery-back-price">Rp 85.000</span>
+                <div class="gallery-back-ornament">✦</div>
+              </div>
+            </div>
           </div>
         </div>
+
         <div class="gallery-card scroll-reveal" style="animation-delay:0.1s">
-          <div class="gallery-card-inner" style="background: linear-gradient(160deg, #d4607a 0%, #8b3045 100%)">
-            <div class="gallery-card-content">
-              <div class="gallery-emoji">🍓</div>
-              <h3>Strawberry Mille-Feuille</h3>
-              <p>Crisp layers of pure joy</p>
+          <div class="gallery-flip-inner">
+            <div class="gallery-flip-front">
+              <img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?w=600&q=80&fit=crop" alt="Strawberry Mille-Feuille" loading="lazy"/>
+              <div class="gallery-front-label"><span>Strawberry Mille-Feuille</span></div>
+              <div class="gallery-tap-hint">✦ Click to reveal</div>
             </div>
-            <div class="gallery-card-overlay"></div>
+            <div class="gallery-flip-back">
+              <div class="gallery-back-content">
+                <div class="gallery-back-ornament">✦</div>
+                <h3>Strawberry Mille-Feuille</h3>
+                <div class="gallery-back-divider"></div>
+                <p>A thousand crisp layers of butter pastry nestled with fresh strawberries and vanilla diplomat cream. Pure joy, shattering beautifully with every fork.</p>
+                <span class="gallery-back-price">Rp 78.000</span>
+                <div class="gallery-back-ornament">✦</div>
+              </div>
+            </div>
           </div>
         </div>
+
         <div class="gallery-card scroll-reveal" style="animation-delay:0.2s">
-          <div class="gallery-card-inner" style="background: linear-gradient(160deg, #4a7a5a 0%, #1a3020 100%)">
-            <div class="gallery-card-content">
-              <div class="gallery-emoji">🍵</div>
-              <h3>Matcha Zen Torte</h3>
-              <p>Serenity on a plate</p>
+          <div class="gallery-flip-inner">
+            <div class="gallery-flip-front">
+              <img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=600&q=80&fit=crop" alt="Matcha Zen Torte" loading="lazy"/>
+              <div class="gallery-front-label"><span>Matcha Zen Torte</span></div>
+              <div class="gallery-tap-hint">✦ Click to reveal</div>
             </div>
-            <div class="gallery-card-overlay"></div>
+            <div class="gallery-flip-back">
+              <div class="gallery-back-content">
+                <div class="gallery-back-ornament">✦</div>
+                <h3>Matcha Zen Torte</h3>
+                <div class="gallery-back-divider"></div>
+                <p>Ceremonial grade matcha meets white chocolate mousse on a black sesame crumble base. A meditation in flavour — earthy, silky, serene.</p>
+                <span class="gallery-back-price">Rp 88.000</span>
+                <div class="gallery-back-ornament">✦</div>
+              </div>
+            </div>
           </div>
         </div>
+
         <div class="gallery-card wide scroll-reveal" style="animation-delay:0.3s">
-          <div class="gallery-card-inner" style="background: linear-gradient(160deg, #2d1a0a 0%, #8b5e3c 100%)">
-            <div class="gallery-card-content">
-              <div class="gallery-emoji">🍫</div>
-              <h3>Dark Chocolate Obsession</h3>
-              <p>Where luxury meets decadence — edible gold leaf finish</p>
+          <div class="gallery-flip-inner">
+            <div class="gallery-flip-front">
+              <img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=1000&q=80&fit=crop" alt="Dark Chocolate Obsession" loading="lazy"/>
+              <div class="gallery-front-label"><span>Dark Chocolate Obsession</span></div>
+              <div class="gallery-tap-hint">✦ Click to reveal</div>
             </div>
-            <div class="gallery-card-overlay"></div>
+            <div class="gallery-flip-back">
+              <div class="gallery-back-content">
+                <div class="gallery-back-ornament">✦</div>
+                <h3>Dark Chocolate Obsession</h3>
+                <div class="gallery-back-divider"></div>
+                <p>72% cacao ganache layered over salted caramel and finished with genuine edible gold leaf. Where luxury meets decadence — a sinful masterpiece for the truly devoted.</p>
+                <span class="gallery-back-price">Rp 92.000</span>
+                <div class="gallery-back-ornament">✦</div>
+              </div>
+            </div>
           </div>
         </div>
+
         <div class="gallery-card scroll-reveal" style="animation-delay:0.4s">
-          <div class="gallery-card-inner" style="background: linear-gradient(160deg, #d4a0b0 0%, #7a3a50 100%)">
-            <div class="gallery-card-content">
-              <div class="gallery-emoji">🌸</div>
-              <h3>Rose Lychee Chiffon</h3>
-              <p>Delicate as a garden breeze</p>
+          <div class="gallery-flip-inner">
+            <div class="gallery-flip-front">
+              <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=600&q=80&fit=crop" alt="Butter Croissant" loading="lazy"/>
+              <div class="gallery-front-label"><span>Butter Croissant</span></div>
+              <div class="gallery-tap-hint">✦ Click to reveal</div>
             </div>
-            <div class="gallery-card-overlay"></div>
+            <div class="gallery-flip-back">
+              <div class="gallery-back-content">
+                <div class="gallery-back-ornament">✦</div>
+                <h3>Butter Croissant</h3>
+                <div class="gallery-back-divider"></div>
+                <p>French-style laminated dough, cold-fermented for 72 hours with cultured butter. The flaky crackle, the honeyed interior — perfection baked at dawn.</p>
+                <span class="gallery-back-price">Rp 32.000</span>
+                <div class="gallery-back-ornament">✦</div>
+              </div>
+            </div>
           </div>
         </div>
+
       </div>
     </div>
   </section>
