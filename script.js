@@ -335,14 +335,90 @@ const statsEl = document.querySelector('.about-stats');
 if (statsEl) statsObserver.observe(statsEl);
 
 // ===================================
-// PAGE LOAD ENTRANCE
+// GALLERY CLICK-TO-REVEAL (3D Flip)
 // ===================================
-window.addEventListener('load', () => {
-  document.body.style.opacity = '0';
-  document.body.style.transition = 'opacity 0.5s ease';
-  requestAnimationFrame(() => {
-    document.body.style.opacity = '1';
+document.querySelectorAll('.gallery-card').forEach(card => {
+  const inner = card.querySelector('.gallery-flip-inner');
+  if (!inner) return;
+
+  card.addEventListener('click', () => {
+    card.classList.toggle('flipped');
   });
+
+  // Close on outside click
+  document.addEventListener('click', (e) => {
+    if (!card.contains(e.target)) {
+      card.classList.remove('flipped');
+    }
+  });
+});
+
+// ===================================
+// PRELOADER + GSAP HERO ENTRANCE
+// ===================================
+gsap.registerPlugin(ScrollTrigger);
+
+function initHeroGSAP() {
+  // Hero elements entrance after preloader
+  const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+
+  tl.fromTo('.hero-bg-img', { scale: 1.08, opacity: 0 }, { scale: 1, opacity: 1, duration: 1.6 })
+    .fromTo('.gsap-hero-eyebrow', { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.8 }, '-=1')
+    .fromTo('.gsap-hero-line', { opacity: 0, y: 60, skewY: 4 },
+      { opacity: 1, y: 0, skewY: 0, duration: 1, stagger: 0.15 }, '-=0.4')
+    .fromTo('.hero-title-deco', { opacity: 0, scaleX: 0 }, { opacity: 1, scaleX: 1, duration: 0.6, ease: 'power2.inOut' }, '-=0.3')
+    .fromTo('.gsap-hero-sub', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.7 }, '-=0.2')
+    .fromTo('.gsap-hero-cta', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6 }, '-=0.3')
+    .fromTo('.hero-corner', { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.8, stagger: 0.08 }, '-=0.6')
+    .fromTo('.hero-scroll-hint', { opacity: 0 }, { opacity: 1, duration: 0.6 }, '-=0.2');
+}
+
+window.addEventListener('load', () => {
+  const preloader = document.getElementById('preloader');
+  const bar = document.getElementById('preloaderBar');
+  const pct = document.getElementById('preloaderPct');
+  const paths = document.querySelectorAll('.draw-path');
+
+  // Animate SVG line-drawing
+  paths.forEach((path, i) => {
+    const len = path.getTotalLength ? path.getTotalLength() : 100;
+    path.style.strokeDasharray = len;
+    path.style.strokeDashoffset = len;
+    gsap.to(path, {
+      strokeDashoffset: 0,
+      duration: 1.2,
+      delay: 0.3 + i * 0.15,
+      ease: 'power2.out'
+    });
+  });
+
+  // Loading bar progress
+  gsap.to(bar, {
+    width: '100%',
+    duration: 1.8,
+    ease: 'power1.inOut',
+    onUpdate: function() {
+      const val = Math.round(this.progress() * 100);
+      if (pct) pct.textContent = val + '%';
+    }
+  });
+
+  // Brand name entrance
+  gsap.fromTo('.preloader-brand', { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.8, delay: 0.5 });
+  gsap.fromTo('.preloader-tagline', { opacity: 0 }, { opacity: 1, duration: 0.6, delay: 0.9 });
+
+  // Fade out preloader after ~2.2s
+  setTimeout(() => {
+    gsap.to(preloader, {
+      opacity: 0,
+      duration: 0.8,
+      ease: 'power2.inOut',
+      onComplete: () => {
+        preloader.style.display = 'none';
+        initHeroGSAP();
+      }
+    });
+  }, 2200);
 });
 
 // Cleanup on unload
