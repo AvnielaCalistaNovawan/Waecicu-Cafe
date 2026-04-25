@@ -94,8 +94,10 @@ navLinks.querySelectorAll('.nav-link').forEach(link => {
 // PARALLAX EFFECTS
 // ===================================
 const parallaxBgs = document.querySelectorAll('.parallax-bg');
+const isMobile = window.matchMedia('(max-width: 768px)').matches;
 
 const handleParallax = () => {
+  if (isMobile) return;
   const scrollY = window.scrollY;
   parallaxBgs.forEach(el => {
     const speed = parseFloat(el.dataset.speed) || 0.3;
@@ -224,30 +226,8 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 // ===================================
-// GALLERY CARD PARALLAX ON HOVER
+// GALLERY CARD HOVER EFFECT (subtle scale via CSS)
 // ===================================
-document.querySelectorAll('.gallery-card').forEach(card => {
-  card.addEventListener('mousemove', (e) => {
-    const rect = card.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width - 0.5;
-    const y = (e.clientY - rect.top) / rect.height - 0.5;
-    const inner = card.querySelector('.gallery-card-inner');
-    if (inner) {
-      inner.style.transform = `scale(1.04) rotateY(${x * 4}deg) rotateX(${-y * 4}deg)`;
-    }
-  });
-  card.addEventListener('mouseleave', () => {
-    const inner = card.querySelector('.gallery-card-inner');
-    if (inner) {
-      inner.style.transform = '';
-      inner.style.transition = 'transform 0.6s ease';
-    }
-  });
-  card.addEventListener('mouseenter', () => {
-    const inner = card.querySelector('.gallery-card-inner');
-    if (inner) inner.style.transition = 'transform 0.15s ease';
-  });
-});
 
 // ===================================
 // MENU ITEM FLOATING IMAGE ON HOVER (enhanced)
@@ -285,17 +265,20 @@ if (marqueeTrack) {
 // SCROLL-BASED VINE ANIMATION
 // ===================================
 const vines = document.querySelectorAll('.vine');
-window.addEventListener('scroll', () => {
-  const scrollY = window.scrollY;
-  const heroHeight = document.querySelector('.hero').offsetHeight;
-  const progress = Math.min(scrollY / heroHeight, 1);
-  vines.forEach(vine => {
-    vine.style.opacity = 0.4 - progress * 0.35;
-    vine.style.transform = vine.classList.contains('vine-right')
-      ? `scaleX(-1) translateY(${scrollY * 0.06}px)`
-      : `translateY(${scrollY * 0.06}px)`;
-  });
-}, { passive: true });
+if (!isMobile) {
+  window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY;
+    const heroEl = document.querySelector('.hero');
+    const heroHeight = heroEl ? heroEl.offsetHeight : window.innerHeight;
+    const progress = Math.min(scrollY / heroHeight, 1);
+    vines.forEach(vine => {
+      vine.style.opacity = 0.4 - progress * 0.35;
+      vine.style.transform = vine.classList.contains('vine-right')
+        ? `scaleX(-1) translateY(${scrollY * 0.06}px)`
+        : `translateY(${scrollY * 0.06}px)`;
+    });
+  }, { passive: true });
+}
 
 // ===================================
 // NUMBER COUNTER ANIMATION
@@ -335,23 +318,8 @@ const statsEl = document.querySelector('.about-stats');
 if (statsEl) statsObserver.observe(statsEl);
 
 // ===================================
-// GALLERY CLICK-TO-REVEAL (3D Flip)
+// GALLERY CLICK (handled by modal below)
 // ===================================
-document.querySelectorAll('.gallery-card').forEach(card => {
-  const inner = card.querySelector('.gallery-flip-inner');
-  if (!inner) return;
-
-  card.addEventListener('click', () => {
-    card.classList.toggle('flipped');
-  });
-
-  // Close on outside click
-  document.addEventListener('click', (e) => {
-    if (!card.contains(e.target)) {
-      card.classList.remove('flipped');
-    }
-  });
-});
 
 // ===================================
 // PRELOADER + GSAP HERO ENTRANCE
@@ -425,3 +393,140 @@ window.addEventListener('load', () => {
 window.addEventListener('beforeunload', () => {
   if (rafId) cancelAnimationFrame(rafId);
 });
+// ===================================
+// GALLERY MODAL POPUP
+// ===================================
+(function() {
+  const overlay = document.getElementById('galleryModal');
+  const closeBtn = document.getElementById('modalClose');
+  if (!overlay) return;
+
+  const modalImg   = document.getElementById('modalImg');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalDesc  = document.getElementById('modalDesc');
+  const modalPrice = document.getElementById('modalPrice');
+  const modalDets  = document.getElementById('modalDetails');
+
+  function openGalleryModal(card) {
+    const title   = card.dataset.title   || '';
+    const price   = card.dataset.price   || '';
+    const img     = card.dataset.img     || '';
+    const desc    = card.dataset.desc    || '';
+    const details = card.dataset.details ? JSON.parse(card.dataset.details) : [];
+
+    modalImg.src         = img;
+    modalImg.alt         = title;
+    modalTitle.textContent = title;
+    modalDesc.textContent  = desc;
+    modalPrice.textContent = price;
+
+    // Build detail tags
+    modalDets.innerHTML = details.map(d => `
+      <div class="modal-detail-tag">
+        <span class="modal-detail-tag-label">${d.label}</span>
+        <span class="modal-detail-tag-value">${d.value}</span>
+      </div>
+    `).join('');
+
+    overlay.setAttribute('aria-hidden', 'false');
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeGalleryModal() {
+    overlay.classList.remove('active');
+    overlay.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    // Clear img src after transition so there's no flash next open
+    setTimeout(() => { modalImg.src = ''; }, 450);
+  }
+
+  // Attach to all gallery cards
+  document.querySelectorAll('.gallery-card[data-title]').forEach(card => {
+    card.addEventListener('click', () => openGalleryModal(card));
+  });
+
+  closeBtn.addEventListener('click', closeGalleryModal);
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) closeGalleryModal();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeGalleryModal();
+  });
+})();
+
+// ===================================
+// MENU DETAIL MODAL POPUP
+// ===================================
+(function() {
+  const overlay   = document.getElementById('menuModal');
+  const closeBtn  = document.getElementById('menuModalClose');
+  if (!overlay) return;
+
+  const modalEmoji    = document.getElementById('menuModalEmoji');
+  const modalTitle    = document.getElementById('menuModalTitle');
+  const modalPrice    = document.getElementById('menuModalPrice');
+  const modalDesc     = document.getElementById('menuModalDesc');
+  const modalSections = document.getElementById('menuModalSections');
+
+  function openMenuModal(item) {
+    const title    = item.dataset.menuTitle    || '';
+    const price    = item.dataset.menuPrice    || '';
+    const emoji    = item.dataset.emoji        || '🎂';
+    const desc     = item.dataset.menuDesc     || '';
+    const sections = item.dataset.menuSections ? JSON.parse(item.dataset.menuSections) : [];
+
+    modalEmoji.textContent  = emoji;
+    modalTitle.textContent  = title;
+    modalPrice.textContent  = price;
+    modalDesc.textContent   = desc;
+
+    // Build sections HTML
+    modalSections.innerHTML = sections.map(s => `
+      <div class="menu-modal-section">
+        <div class="menu-modal-section-header">
+          <span class="menu-modal-section-icon">${s.icon}</span>
+          <span class="menu-modal-section-label">${s.label}</span>
+        </div>
+        <ul class="menu-modal-section-items">
+          ${s.items.map(it => `<li>${it}</li>`).join('')}
+        </ul>
+      </div>
+    `).join('');
+
+    overlay.setAttribute('aria-hidden', 'false');
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+
+    // Stagger-animate each section into view
+    const sectionEls = modalSections.querySelectorAll('.menu-modal-section');
+    sectionEls.forEach((el, i) => {
+      setTimeout(() => el.classList.add('section-visible'), 80 + i * 90);
+    });
+  }
+
+  function closeMenuModal() {
+    overlay.classList.remove('active');
+    overlay.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  // Click on the whole menu-item row → open modal (desktop + mobile)
+  document.querySelectorAll('.menu-item[data-menu-title]').forEach(item => {
+    item.addEventListener('click', (e) => {
+      // Don't trigger if clicking the WhatsApp btn inside a modal
+      openMenuModal(item);
+    });
+  });
+
+  closeBtn.addEventListener('click', closeMenuModal);
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) closeMenuModal();
+  });
+  document.addEventListener('keydown', (e) => {
+    // Only close the topmost active modal
+    if (e.key === 'Escape') {
+      if (overlay.classList.contains('active')) closeMenuModal();
+    }
+  });
+})();
